@@ -2,6 +2,8 @@
 
 public class Translation: ITranslation
 {
+    public Guid Id { get; init; }
+    
     public string Key { get; init; }
     public string Value { get; init; }
     public string Culture { get; init; }

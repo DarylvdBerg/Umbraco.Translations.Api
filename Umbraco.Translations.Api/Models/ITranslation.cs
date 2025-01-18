@@ -3,7 +3,12 @@
 public interface ITranslation
 {
     /// <summary>
-    /// Gets the translation dictionary key
+    /// Gets the translation Guid
+    /// </summary>
+    public Guid Id { get; }
+    
+    /// <summary>
+    /// Gets the translation key
     /// </summary>
     public string Key { get; }
     
