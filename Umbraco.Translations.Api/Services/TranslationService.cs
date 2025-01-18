@@ -12,6 +12,7 @@ public class TranslationService : ITranslationService
     public TranslationService(ILocalizationService localizationService, IMapper mapper)
     {
         _localizationService = localizationService;
+        _mapper = mapper;
     }
     
     /// <inheritdoc />
