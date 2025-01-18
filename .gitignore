@@ -363,3 +363,4 @@ FodyWeavers.xsd
 *.cache
 /Umbraco.Translations.Api.Tests/obj
 .idea
+DemoSite/appsettings.Development.json
