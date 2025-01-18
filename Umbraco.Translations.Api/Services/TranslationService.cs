@@ -14,14 +14,17 @@ public class TranslationService : ITranslationService
         _localizationService = localizationService;
     }
     
+    /// <inheritdoc />
     public ITranslation? GetTranslationByCulture(string culture, string key)
     {
+        // Try get dictionary item from umbraco by provided key.
         var umbracoTranslation = _localizationService.GetDictionaryItemByKey(key);
         if (umbracoTranslation is null)
         {
             return null;
         }
 
+        // Get the single instance of the configured translation by culture.
         var umbracoTranslationByCulture = umbracoTranslation
             .Translations
             .SingleOrDefault(trans => trans.LanguageIsoCode.Equals(culture, StringComparison.InvariantCulture));
@@ -41,6 +44,7 @@ public class TranslationService : ITranslationService
         return mapped;
     }
 
+    /// <inheritdoc />
     public IList<ITranslation>? GetAllTranslationsByCulture(string culture)
     {
         throw new NotImplementedException();
