@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Translations.Api", "Umbraco.Translations.Api\Umbraco.Translations.Api.csproj", "{52CF5D65-C4C7-40B4-9F9C-7FB783E4A5D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoSite", "DemoSite\DemoSite.csproj", "{F1C381F1-04BF-4E4A-974C-A9C3EA7C8745}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Translations.Api.Tests", "Umbraco.Translations.Api.Tests\Umbraco.Translations.Api.Tests.csproj", "{FFD2A452-75DC-48AD-89BF-6B20C8C6078A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52CF5D65-C4C7-40B4-9F9C-7FB783E4A5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52CF5D65-C4C7-40B4-9F9C-7FB783E4A5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52CF5D65-C4C7-40B4-9F9C-7FB783E4A5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52CF5D65-C4C7-40B4-9F9C-7FB783E4A5D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1C381F1-04BF-4E4A-974C-A9C3EA7C8745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1C381F1-04BF-4E4A-974C-A9C3EA7C8745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1C381F1-04BF-4E4A-974C-A9C3EA7C8745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1C381F1-04BF-4E4A-974C-A9C3EA7C8745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFD2A452-75DC-48AD-89BF-6B20C8C6078A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFD2A452-75DC-48AD-89BF-6B20C8C6078A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFD2A452-75DC-48AD-89BF-6B20C8C6078A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFD2A452-75DC-48AD-89BF-6B20C8C6078A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
