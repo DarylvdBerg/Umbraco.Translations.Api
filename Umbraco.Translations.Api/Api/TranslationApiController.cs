@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Translations.Api.Builder;
 using Umbraco.Translations.Api.Models;
 using Umbraco.Translations.Api.Services;
 
@@ -19,12 +20,18 @@ public class TranslationApiController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(type: typeof(ITranslation),  statusCode: 200)]
-    [ProducesResponseType(statusCode: 404)]
-    public ITranslation? Get(string culture, string key)
+    public ITranslationApiResponse Get(string culture, string key)
     {
+        var responseBuilder = new TranslationApiResponseBuilder();
         var translation = _translationService.GetTranslationByCulture(culture, key);
-        return translation;
+        
+        if (translation is not null)
+        {
+            responseBuilder.WithResult(translation);
+        }
+        
+        var response = responseBuilder.Build();
+        return response;
     }
 
     [HttpGet("all")]
