@@ -1,9 +1,0 @@
-$RootDir = Split-Path -Path $CurrentDir -Parent
-$TestSitesFolderName = "testsites"
-$TestSitesFolder = "$RootDir\$TestSitesFolderName"
-$TestProjectName = "TestWebsiteV13"
-$PackageName = "DotControl.Umbraco.uWork"
-$SourceDir = "$RootDir\src"
-$UmbracoVersion = "13.0.0"
-$InstallStarterKit = [bool]::Parse('false')
-$StarterkitVersion = "13.0.0"
