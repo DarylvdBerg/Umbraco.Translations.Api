@@ -35,8 +35,17 @@ public class TranslationApiController : ControllerBase
     }
 
     [HttpGet("all")]
-    public IList<ITranslation> GetAll()
+    public ITranslationApiResponse GetAll(string culture)
     {
-        throw new NotImplementedException();
+        var responseBuilder = new TranslationApiResponseBuilder();
+        var translations = _translationService.GetAllTranslationsByCulture(culture);
+
+        if (translations is not null && translations.Any())
+        {
+            responseBuilder.WithResults(translations);
+        }
+        
+        var response = responseBuilder.Build();
+        return response;
     }
 }
