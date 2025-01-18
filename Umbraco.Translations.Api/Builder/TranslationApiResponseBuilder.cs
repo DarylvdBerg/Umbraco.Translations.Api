@@ -7,7 +7,7 @@ namespace Umbraco.Translations.Api.Builder;
 /// </summary>
 public class TranslationApiResponseBuilder
 {
-    private IList<ITranslation> _result = new List<ITranslation>();
+    private readonly List<ITranslation> _result = new();
 
     /// <summary>
     /// Set Results for multiple results. property
@@ -16,7 +16,7 @@ public class TranslationApiResponseBuilder
     /// <returns>TranslationApiResponseBuilder</returns>
     public TranslationApiResponseBuilder WithResults(IList<ITranslation> result)
     {
-        _result = result;
+        _result.AddRange(result);
         return this;
     }
 
