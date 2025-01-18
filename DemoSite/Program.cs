@@ -1,28 +1,40 @@
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+using Umbraco.Translations.Api.Extensions;
 
-builder.CreateUmbracoBuilder()
-    .AddBackOffice()
-    .AddWebsite()
-    .AddDeliveryApi()
-    .AddComposers()
-    .Build();
-
-WebApplication app = builder.Build();
-
-await app.BootUmbracoAsync();
-
-
-app.UseUmbraco()
-    .WithMiddleware(u =>
+public class Program
+{
+    public static async Task Main(string[] args)
     {
-        u.UseBackOffice();
-        u.UseWebsite();
-    })
-    .WithEndpoints(u =>
-    {
-        u.UseInstallerEndpoints();
-        u.UseBackOfficeEndpoints();
-        u.UseWebsiteEndpoints();
-    });
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-await app.RunAsync();
+        builder.CreateUmbracoBuilder()
+            .AddBackOffice()
+            .AddWebsite()
+            .AddDeliveryApi()
+            .AddComposers()
+            .Build();
+        
+        builder.Services.RegisterTranslationsApi();
+
+        WebApplication app = builder.Build();
+
+        await app.BootUmbracoAsync();
+        
+        app.UseUmbraco()
+            .WithMiddleware(u =>
+            {
+                u.UseBackOffice();
+                u.UseWebsite();
+            })
+            .WithEndpoints(u =>
+            {
+                u.UseInstallerEndpoints();
+                u.UseBackOfficeEndpoints();
+                u.UseWebsiteEndpoints();
+            });
+
+        await app.RunAsync();
+    }
+}
+
+
+

@@ -1,23 +1,30 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Translations.Api.Models;
+using Umbraco.Translations.Api.Services;
 
 namespace Umbraco.Translations.Api.Api;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/translations")]
 [ApiVersion(Constants.Api.Version)]
+[Produces("application/json")]
 public class TranslationApiController : ControllerBase
 {
-    public TranslationApiController()
+    private ITranslationService _translationService;
+    
+    public TranslationApiController(ITranslationService translationService)
     {
-        
+        _translationService = translationService;
     }
 
     [HttpGet]
-    public ITranslation Get()
+    [ProducesResponseType(type: typeof(ITranslation),  statusCode: 200)]
+    [ProducesResponseType(statusCode: 404)]
+    public ITranslation? Get(string culture, string key)
     {
-        throw new NotImplementedException();
+        var translation = _translationService.GetTranslationByCulture(culture, key);
+        return translation;
     }
 
     [HttpGet("all")]

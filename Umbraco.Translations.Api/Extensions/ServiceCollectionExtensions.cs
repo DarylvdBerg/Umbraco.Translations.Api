@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Umbraco.Translations.Api.Mappers;
 using Umbraco.Translations.Api.Services;
 
 namespace Umbraco.Translations.Api.Extensions;
@@ -21,7 +22,7 @@ public static class ServiceCollectionExtensions
     /// <param name="services"></param>
     private static void RegisterPackageDependencies(this IServiceCollection services)
     {
-        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());   
+        services.AddAutoMapper(typeof(TranslationMapper));
     }
 
     /// <summary>
