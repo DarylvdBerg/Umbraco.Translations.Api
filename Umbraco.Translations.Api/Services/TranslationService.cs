@@ -48,6 +48,36 @@ public class TranslationService : ITranslationService
     /// <inheritdoc />
     public IList<ITranslation>? GetAllTranslationsByCulture(string culture)
     {
-        throw new NotImplementedException();
+        // Fetch all translation guids.
+        var translationKeyMap = _localizationService.GetDictionaryItemKeyMap();
+
+        if (!translationKeyMap.Any())
+        {
+            return null;
+        }
+        
+        // Store only the guids, cast it to an array.
+        var translationGuidCollection = translationKeyMap
+            .Select(translation => translation.Value)
+            .ToArray();
+        
+        // Get all translations by culture from umbraco.
+        var translations = translationGuidCollection.Select(guid => _localizationService.GetDictionaryItemById(guid));
+        var translationsByCulture = translations
+            .Where(trans => trans?.Translations != null)
+            .SelectMany(trans =>
+                trans.Translations
+                    .Where(transByCulture =>
+                        transByCulture.LanguageIsoCode.Equals(culture, StringComparison.InvariantCulture) &&
+                        !string.IsNullOrWhiteSpace(transByCulture.Value)));
+
+        if (!translationsByCulture.Any())
+        {
+            return null;
+        }
+        
+        var mapped = _mapper.Map<IList<ITranslation>>(translationsByCulture);
+
+        return mapped;
     }
 }
