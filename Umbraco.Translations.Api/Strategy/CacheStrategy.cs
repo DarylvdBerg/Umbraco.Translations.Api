@@ -18,14 +18,13 @@ internal class CacheStrategy<TEntity> : ICacheStrategy<TEntity> where TEntity : 
     {
        _cacheImplementation = cacheStrategy;
     }
-    
-    /// <inheritdoc />
-    public async Task<TEntity> ExecuteCacheStrategy(string[] cacheKeyPart, Func<TEntity> fallbackFunc)
+
+    public async Task<TEntity?> FetchSingleCachedItem(string[] cacheKeyParts, Func<TEntity> fallbackFunc)
     {
         try
         {
             // TODO: create builder for cacheKey
-            var cacheKey = string.Join(":", cacheKeyPart);
+            var cacheKey = string.Join(":", cacheKeyParts);
             var entity = await  _cacheImplementation.FetchThroughCacheAsync(cacheKey) ?? fallbackFunc();
             return entity;
         }
@@ -34,5 +33,10 @@ internal class CacheStrategy<TEntity> : ICacheStrategy<TEntity> where TEntity : 
             _logger.LogError(e, $"An error occured fetching cached entity with configured strategy {_cacheImplementation.GetType().Name}");
             throw;
         }
+    }
+
+    public Task<IList<TEntity>?> FetchMultipleCachedItem(string cacheKeySearch, Func<TEntity> fallbackFunc)
+    {
+        throw new NotImplementedException();
     }
 }
