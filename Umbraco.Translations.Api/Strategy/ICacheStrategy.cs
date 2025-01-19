@@ -25,4 +25,10 @@ public interface ICacheStrategy<TEntity> where TEntity : class
     /// <returns></returns>
     IList<TEntity>? FetchMultipleCachedItem(string cacheKeySearch, Func<TEntity> fallbackFunc);
     
+    /// <summary>
+    /// Strategy implementation for removing a item from the configured cache
+    /// </summary>
+    /// <param name="cacheKey"></param>
+    void RemoveFromCache(string cacheKey);
+    
 }

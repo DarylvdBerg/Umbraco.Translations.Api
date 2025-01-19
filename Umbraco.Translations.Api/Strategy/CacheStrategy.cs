@@ -50,4 +50,10 @@ internal class CacheStrategy<TEntity> : ICacheStrategy<TEntity> where TEntity : 
     {
         throw new NotImplementedException();
     }
+
+    /// <inheritdoc />
+    public void RemoveFromCache(string cacheKey)
+    {
+        _cacheImplementation.RemoveFromCache(cacheKey);
+    }
 }
