@@ -13,7 +13,6 @@ public class TranslationMapper : Profile
     {
         CreateMap<IDictionaryTranslation, Translation>()
             .ForMember(src => src.Id, opt => opt.MapFrom(src => src.Key))
-            .ForMember(src => src.Key, opt => opt.MapFrom(src => ""))
             .ForMember(src => src.Value, opt => opt.MapFrom(src => src.Value))
             .ForMember(src => src.Culture, opt => opt.MapFrom(src => src.LanguageIsoCode));
 
