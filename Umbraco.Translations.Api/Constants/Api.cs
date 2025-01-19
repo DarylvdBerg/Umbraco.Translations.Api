@@ -2,5 +2,6 @@
 
 internal sealed class Api
 {
-    public const string Version = "1.0";
+    public const string Version = "1";
+    public const string SchemaName = "TranslationsApi";
 }

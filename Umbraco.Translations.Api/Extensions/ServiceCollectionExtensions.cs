@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Umbraco.Translations.Api.Configuration;
 using Umbraco.Translations.Api.Enums;
 using Umbraco.Translations.Api.Mappers;
@@ -62,6 +63,40 @@ public static class ServiceCollectionExtensions
             .BindConfiguration(TranslationApiConfiguration.SectionName);  
 
         ConfigureCacheStrategy(translationApiConfiguration.CacheStrategy);
+        services.ConfigureSwagger();
+    }
+
+    /// <summary>
+    /// Configuration for the Translations API Swagger
+    /// </summary>
+    /// <param name="services"></param>
+    private static void ConfigureSwagger(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(options =>
+        {
+            options.AddSecurityDefinition("X-Api-Key", new OpenApiSecurityScheme
+            {
+                Name = "X-Api-Key",
+                Description = "X-Api-Key Value",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey
+            });
+            
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme()
+                    {
+                        Reference = new OpenApiReference()
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "X-Api-Key"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+        });
     }
 
     private static void ConfigureCacheStrategy(CacheStrategyEnum cacheStrategy)

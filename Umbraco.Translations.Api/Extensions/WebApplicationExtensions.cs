@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Translations.Api.Configuration;
 using Umbraco.Translations.Api.Middleware;
 

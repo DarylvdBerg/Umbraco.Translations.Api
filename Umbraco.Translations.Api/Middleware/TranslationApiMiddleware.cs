@@ -10,7 +10,7 @@ public class TranslationApiMiddleware : ApiAuthorizationMiddlewareBase
 
     protected override string ApiKeyValue => _options.CurrentValue.ApiKey;
     protected override string ApiKeyHeaderName => "X-Api-Key";
-    protected override string ApiValidationPath => "api/v1.0/translations";
+    protected override string ApiValidationPath => "/api/v1/translations";
 
     public TranslationApiMiddleware(RequestDelegate next, IOptionsMonitor<TranslationApiConfiguration> options) : base(next)
     {
