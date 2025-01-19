@@ -32,7 +32,7 @@ public class TranslationApiController : ControllerBase
         
         try
         {
-            var translation = await _translationCache.ExecuteCacheStrategy([key, culture],
+            var translation = await _translationCache.FetchSingleCachedItem([key, culture],
                 () => _translationService.GetTranslationByCulture(culture, key));
         
             if (translation is not null)
