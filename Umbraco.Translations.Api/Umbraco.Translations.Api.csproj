@@ -16,8 +16,4 @@
       <PackageReference Include="Umbraco.Cms.Core" Version="13.5.2" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="NotificationHandlers\" />
-    </ItemGroup>
-
 </Project>
