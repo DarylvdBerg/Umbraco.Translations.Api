@@ -72,6 +72,7 @@ public static class ServiceCollectionExtensions
     /// <param name="services"></param>
     private static void ConfigureSwagger(this IServiceCollection services)
     {
+        // TODO: Check if we can move the translation API to a seperate swagger document.
         services.AddSwaggerGen(options =>
         {
             options.AddSecurityDefinition("X-Api-Key", new OpenApiSecurityScheme
