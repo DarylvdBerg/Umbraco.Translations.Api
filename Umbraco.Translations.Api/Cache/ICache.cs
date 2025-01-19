@@ -7,4 +7,6 @@ public interface ICache<TEntity>
     /// </summary>
     /// <returns></returns>
     Task<TEntity?> FetchThroughCacheAsync(string cacheKey);
+
+    Task<IList<TEntity>?> FetchAllThroughCache(string cacheKey);
 }

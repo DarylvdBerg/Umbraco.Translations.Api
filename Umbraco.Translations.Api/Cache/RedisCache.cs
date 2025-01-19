@@ -7,4 +7,9 @@ internal class RedisCache<TEntity> : ICache<TEntity>
     {
         throw new NotImplementedException();
     }
+
+    public Task<IList<TEntity>?> FetchAllThroughCache(string cacheKey)
+    {
+        throw new NotImplementedException();
+    }
 }
