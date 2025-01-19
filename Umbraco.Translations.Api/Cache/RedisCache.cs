@@ -19,4 +19,10 @@ internal class RedisCache<TEntity> : ICache<TEntity>
     {
         throw new NotImplementedException();
     }
+
+    /// <inheritdoc />
+    public void RemoveFromCache(string cacheKey)
+    {
+        throw new NotImplementedException();
+    }
 }

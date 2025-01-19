@@ -21,4 +21,10 @@ public interface ICache<TEntity>
     /// <param name="cacheKey"></param>
     /// <param name="cacheItem"></param>
     void AddToCache(string cacheKey, TEntity cacheItem);
+
+    /// <summary>
+    ///  Remove item from cache given cache key.
+    /// </summary>
+    /// <param name="cacheKey"></param>
+    void RemoveFromCache(string cacheKey);
 }

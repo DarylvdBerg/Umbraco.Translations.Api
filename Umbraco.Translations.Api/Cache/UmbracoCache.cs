@@ -42,4 +42,10 @@ public class UmbracoCache<TEntity> : ICache<TEntity> where TEntity : class
     {
         _appPolicyCache.InsertCacheItem(cacheKey, () => cacheItem);
     }
+
+    /// <inheritdoc />
+    public void RemoveFromCache(string cacheKey)
+    {
+        _appPolicyCache.ClearByKey(cacheKey);
+    }
 }
