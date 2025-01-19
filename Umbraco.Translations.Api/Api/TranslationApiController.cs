@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Umbraco.Translations.Api.Builder;
 using Umbraco.Translations.Api.Models;
 using Umbraco.Translations.Api.Services;
@@ -15,23 +16,35 @@ public class TranslationApiController : ControllerBase
 {
     private readonly ITranslationService _translationService;
     private readonly ICacheStrategy<ITranslation> _translationCache;
-    
-    public TranslationApiController(ITranslationService translationService, ICacheStrategy<ITranslation> translationCache)
+    private readonly ILogger<TranslationApiController> _logger;
+
+    public TranslationApiController(ITranslationService translationService, ICacheStrategy<ITranslation> translationCache, ILogger<TranslationApiController> logger)
     {
         _translationService = translationService;
         _translationCache = translationCache;
+        _logger = logger;
     }
 
     [HttpGet]
     public async Task<ITranslationApiResponse> Get(string culture, string key)
     {
         var responseBuilder = new TranslationApiResponseBuilder();
-        var translation = await _translationCache.ExecuteCacheStrategy([key, culture],
-            () => _translationService.GetTranslationByCulture(culture, key));
         
-        if (translation is not null)
+        try
         {
-            responseBuilder.WithResult(translation);
+            var translation = await _translationCache.ExecuteCacheStrategy([key, culture],
+                () => _translationService.GetTranslationByCulture(culture, key));
+        
+            if (translation is not null)
+            {
+                responseBuilder.WithResult(translation);
+            }
+        }
+        catch (Exception e)
+        {
+            var message = $"Failed to fetch single translation with provided key: {key}, and culture: {culture}";
+            _logger.LogError(e, message);
+            responseBuilder.WithErrorMessage(message);
         }
         
         var response = responseBuilder.Build();
@@ -42,11 +55,20 @@ public class TranslationApiController : ControllerBase
     public ITranslationApiResponse GetAll(string culture)
     {
         var responseBuilder = new TranslationApiResponseBuilder();
-        var translations = _translationService.GetAllTranslationsByCulture(culture);
-
-        if (translations is not null && translations.Any())
+        try
         {
-            responseBuilder.WithResults(translations);
+            var translations = _translationService.GetAllTranslationsByCulture(culture);
+
+            if (translations is not null && translations.Any())
+            {
+                responseBuilder.WithResults(translations);
+            }
+        }
+        catch (Exception e)
+        {
+            var message = $"Failed to fetch translations for culture: {culture}";
+            _logger.LogError(e, message);
+            responseBuilder.WithErrorMessage(message);
         }
         
         var response = responseBuilder.Build();

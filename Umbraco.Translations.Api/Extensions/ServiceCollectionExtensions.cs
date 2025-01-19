@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Umbraco.Translations.Api.Cache;
@@ -116,7 +117,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ICacheStrategy<ITranslation>>(sp =>
         {
             var cache = sp.GetRequiredKeyedService<ICache<ITranslation>>(configuredCache);
-            var cacheStrategy = new CacheStrategy<ITranslation>();
+            var logger = sp.GetRequiredService<ILogger<CacheStrategy<ITranslation>>>();
+            var cacheStrategy = new CacheStrategy<ITranslation>(logger);
             cacheStrategy.SetCacheStrategy(cache);
             return cacheStrategy;
         });

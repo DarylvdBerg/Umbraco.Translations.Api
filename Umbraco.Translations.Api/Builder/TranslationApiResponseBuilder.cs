@@ -8,6 +8,7 @@ namespace Umbraco.Translations.Api.Builder;
 public class TranslationApiResponseBuilder
 {
     private readonly List<ITranslation> _result = new();
+    private string _errorMessage = string.Empty;
 
     /// <summary>
     /// Set Results for multiple results. property
@@ -31,11 +32,23 @@ public class TranslationApiResponseBuilder
         return this;
     }
 
+    /// <summary>
+    /// Append error message to the api response.
+    /// </summary>
+    /// <param name="errorMessage"></param>
+    /// <returns></returns>
+    public TranslationApiResponseBuilder WithErrorMessage(string errorMessage)
+    {
+        _errorMessage = errorMessage;
+        return this;
+    }
+
     public ITranslationApiResponse Build()
     {
         var translationApiResponse = new TranslationApiResponse()
         {
-            Result = _result
+            Result = _result,
+            ErrorMessage = _errorMessage
         };
         
         return translationApiResponse;
