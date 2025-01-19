@@ -13,11 +13,12 @@ public class Program
             .AddComposers()
             .Build();
         
-        builder.Services.RegisterTranslationsApi();
+        builder.RegisterTranslationsApi();
 
         WebApplication app = builder.Build();
 
         await app.BootUmbracoAsync();
+        app.ConfigureApiMiddleware();
         
         app.UseUmbraco()
             .WithMiddleware(u =>

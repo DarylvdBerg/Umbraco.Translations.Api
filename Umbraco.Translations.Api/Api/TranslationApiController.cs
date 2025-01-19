@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Translations.Api.Builder;
 using Umbraco.Translations.Api.Models;
@@ -10,6 +11,7 @@ namespace Umbraco.Translations.Api.Api;
 [Route("api/v{version:apiVersion}/translations")]
 [ApiVersion(Constants.Api.Version)]
 [Produces("application/json")]
+[Authorize]
 public class TranslationApiController : ControllerBase
 {
     private ITranslationService _translationService;
