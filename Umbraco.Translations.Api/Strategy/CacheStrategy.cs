@@ -13,9 +13,11 @@ internal class CacheStrategy<TEntity> : ICacheStrategy<TEntity> where TEntity : 
     }
     
     /// <inheritdoc />
-    public async Task<TEntity> ExecuteCacheStrategy(Func<TEntity> fallbackFunc)
+    public async Task<TEntity> ExecuteCacheStrategy(string[] cacheKeyPart, Func<TEntity> fallbackFunc)
     {
-        var entity = await  _cacheImplementation.FetchThroughCacheAsync() ?? fallbackFunc();
+        // TODO: create builder for cacheKey
+        var cacheKey = string.Join(":", cacheKeyPart);
+        var entity = await  _cacheImplementation.FetchThroughCacheAsync(cacheKey) ?? fallbackFunc();
         return entity;
     }
 }

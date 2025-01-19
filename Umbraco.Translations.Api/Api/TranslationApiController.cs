@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Umbraco.Translations.Api.Builder;
 using Umbraco.Translations.Api.Models;
 using Umbraco.Translations.Api.Services;
+using Umbraco.Translations.Api.Strategy;
 
 namespace Umbraco.Translations.Api.Api;
 
@@ -12,18 +13,21 @@ namespace Umbraco.Translations.Api.Api;
 [Produces("application/json")]
 public class TranslationApiController : ControllerBase
 {
-    private ITranslationService _translationService;
+    private readonly ITranslationService _translationService;
+    private readonly ICacheStrategy<ITranslation> _translationCache;
     
-    public TranslationApiController(ITranslationService translationService)
+    public TranslationApiController(ITranslationService translationService, ICacheStrategy<ITranslation> translationCache)
     {
         _translationService = translationService;
+        _translationCache = translationCache;
     }
 
     [HttpGet]
-    public ITranslationApiResponse Get(string culture, string key)
+    public async Task<ITranslationApiResponse> Get(string culture, string key)
     {
         var responseBuilder = new TranslationApiResponseBuilder();
-        var translation = _translationService.GetTranslationByCulture(culture, key);
+        var translation = await _translationCache.ExecuteCacheStrategy([key, culture],
+            () => _translationService.GetTranslationByCulture(culture, key));
         
         if (translation is not null)
         {

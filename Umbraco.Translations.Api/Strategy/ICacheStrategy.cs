@@ -15,5 +15,5 @@ public interface ICacheStrategy<TEntity> where TEntity : class
     /// </summary>
     /// <param name="fallbackFunc"></param>
     /// <returns></returns>
-    Task<TEntity> ExecuteCacheStrategy(Func<TEntity> fallbackFunc);
+    Task<TEntity?> ExecuteCacheStrategy(string[] cacheKeyParts, Func<TEntity> fallbackFunc);
 }

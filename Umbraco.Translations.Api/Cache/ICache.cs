@@ -6,5 +6,5 @@ public interface ICache<TEntity>
     /// Fetch instance of <see cref="TEntity"/> through cache.
     /// </summary>
     /// <returns></returns>
-    Task<TEntity?> FetchThroughCacheAsync();
+    Task<TEntity?> FetchThroughCacheAsync(string cacheKey);
 }
