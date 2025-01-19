@@ -5,10 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Umbraco.Translations.Api.Cache;
 using Umbraco.Translations.Api.Configuration;
 using Umbraco.Translations.Api.Enums;
 using Umbraco.Translations.Api.Mappers;
+using Umbraco.Translations.Api.Models;
 using Umbraco.Translations.Api.Services;
+using Umbraco.Translations.Api.Strategy;
 
 namespace Umbraco.Translations.Api.Extensions;
 
@@ -41,6 +44,8 @@ public static class ServiceCollectionExtensions
     private static void RegisterPackageServices(this IServiceCollection services)
     {
         services.AddTransient<ITranslationService, TranslationService>();
+        services.AddKeyedSingleton<ICache<ITranslation>, RedisCache<ITranslation>>(CacheStrategyEnum.RedisCacheStrategy);
+        services.AddKeyedSingleton<ICache<ITranslation>, UmbracoCache<ITranslation>>(CacheStrategyEnum.UmbracoCacheStrategy);
     }
 
     /// <summary>
@@ -62,7 +67,7 @@ public static class ServiceCollectionExtensions
             .AddOptions<TranslationApiConfiguration>()
             .BindConfiguration(TranslationApiConfiguration.SectionName);  
 
-        ConfigureCacheStrategy(translationApiConfiguration.CacheStrategy);
+        services.ConfigureCacheStrategy(translationApiConfiguration.CacheStrategy);
         services.ConfigureSwagger();
     }
 
@@ -100,8 +105,20 @@ public static class ServiceCollectionExtensions
         });
     }
 
-    private static void ConfigureCacheStrategy(CacheStrategyEnum cacheStrategy)
+    /// <summary>
+    /// Configure the registered cache strategy from configuration.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="cacheStrategy"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    private static void ConfigureCacheStrategy(this IServiceCollection services, CacheStrategyEnum configuredCache)
     {
-        return;
+        services.AddSingleton<ICacheStrategy<ITranslation>>(sp =>
+        {
+            var cache = sp.GetRequiredKeyedService<ICache<ITranslation>>(configuredCache);
+            var cacheStrategy = new CacheStrategy<ITranslation>();
+            cacheStrategy.SetCacheStrategy(cache);
+            return cacheStrategy;
+        });
     }
 }
