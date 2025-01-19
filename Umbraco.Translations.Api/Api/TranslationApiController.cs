@@ -26,13 +26,13 @@ public class TranslationApiController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ITranslationApiResponse> Get(string culture, string key)
+    public ITranslationApiResponse Get(string culture, string key)
     {
         var responseBuilder = new TranslationApiResponseBuilder();
         
         try
         {
-            var translation = await _translationCache.FetchSingleCachedItem([key, culture],
+            var translation =  _translationCache.FetchSingleCachedItem([key, culture],
                 () => _translationService.GetTranslationByCulture(culture, key));
         
             if (translation is not null)

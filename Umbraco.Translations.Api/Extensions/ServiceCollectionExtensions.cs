@@ -47,6 +47,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ITranslationService, TranslationService>();
         services.AddKeyedSingleton<ICache<ITranslation>, RedisCache<ITranslation>>(CacheStrategyEnum.RedisCacheStrategy);
         services.AddKeyedSingleton<ICache<ITranslation>, UmbracoCache<ITranslation>>(CacheStrategyEnum.UmbracoCacheStrategy);
+        services.AddTransient<ICacheKeyBuilder, CacheKeyBuilder>();
     }
 
     /// <summary>
@@ -118,7 +119,8 @@ public static class ServiceCollectionExtensions
         {
             var cache = sp.GetRequiredKeyedService<ICache<ITranslation>>(configuredCache);
             var logger = sp.GetRequiredService<ILogger<CacheStrategy<ITranslation>>>();
-            var cacheStrategy = new CacheStrategy<ITranslation>(logger);
+            var cacheKeyBuilder = sp.GetRequiredService<ICacheKeyBuilder>();
+            var cacheStrategy = new CacheStrategy<ITranslation>(logger, cacheKeyBuilder);
             cacheStrategy.SetCacheStrategy(cache);
             return cacheStrategy;
         });

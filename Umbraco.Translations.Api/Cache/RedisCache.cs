@@ -3,12 +3,19 @@
 internal class RedisCache<TEntity> : ICache<TEntity>
 {
     /// <inheritdoc />
-    public async Task<TEntity?> FetchThroughCacheAsync(string cacheKey)
+    public TEntity? FetchThroughCache(string cacheKey)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IList<TEntity>?> FetchAllThroughCache(string cacheKey)
+    /// <inheritdoc />
+    public IList<TEntity>? FetchAllThroughCache(string cacheKey)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public void AddToCache(string cacheKey, TEntity cacheItem)
     {
         throw new NotImplementedException();
     }

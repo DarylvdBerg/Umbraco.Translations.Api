@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Umbraco.Translations.Api.Cache;
+using Umbraco.Translations.Api.Services;
 
 namespace Umbraco.Translations.Api.Strategy;
 
@@ -7,10 +8,12 @@ internal class CacheStrategy<TEntity> : ICacheStrategy<TEntity> where TEntity : 
 {
     private ICache<TEntity> _cacheImplementation;
     private readonly ILogger<CacheStrategy<TEntity>> _logger;
+    private readonly ICacheKeyBuilder _cacheKeyBuilder;
 
-    public CacheStrategy(ILogger<CacheStrategy<TEntity>> logger)
+    public CacheStrategy(ILogger<CacheStrategy<TEntity>> logger, ICacheKeyBuilder cacheKeyBuilder)
     {
         _logger = logger;
+        _cacheKeyBuilder = cacheKeyBuilder;
     }
     
     /// <inheritdoc />
@@ -19,13 +22,20 @@ internal class CacheStrategy<TEntity> : ICacheStrategy<TEntity> where TEntity : 
        _cacheImplementation = cacheStrategy;
     }
 
-    public async Task<TEntity?> FetchSingleCachedItem(string[] cacheKeyParts, Func<TEntity> fallbackFunc)
+    /// <inheritdoc />
+    public TEntity? FetchSingleCachedItem(string[] cacheKeyParts, Func<TEntity> fallbackFunc)
     {
         try
         {
-            // TODO: create builder for cacheKey
-            var cacheKey = string.Join(":", cacheKeyParts);
-            var entity = await  _cacheImplementation.FetchThroughCacheAsync(cacheKey) ?? fallbackFunc();
+            var cacheKey = _cacheKeyBuilder.BuildCacheKey(cacheKeyParts);
+            var entity =  _cacheImplementation.FetchThroughCache(cacheKey);
+            if (entity == null)
+            {
+                _logger.LogDebug($"No entity found in cache: {cacheKey}, fetching from source and adding to cache.");
+                entity = fallbackFunc();
+                _cacheImplementation.AddToCache(cacheKey, entity);
+            }
+            
             return entity;
         }
         catch (Exception e)
@@ -35,7 +45,8 @@ internal class CacheStrategy<TEntity> : ICacheStrategy<TEntity> where TEntity : 
         }
     }
 
-    public Task<IList<TEntity>?> FetchMultipleCachedItem(string cacheKeySearch, Func<TEntity> fallbackFunc)
+    /// <inheritdoc />
+    public IList<TEntity>? FetchMultipleCachedItem(string cacheKeySearch, Func<TEntity> fallbackFunc)
     {
         throw new NotImplementedException();
     }
