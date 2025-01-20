@@ -46,12 +46,6 @@ internal class CacheStrategy<TEntity> : ICacheStrategy<TEntity> where TEntity : 
     }
 
     /// <inheritdoc />
-    public IList<TEntity>? FetchMultipleCachedItem(string cacheKeySearch, Func<TEntity> fallbackFunc)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <inheritdoc />
     public void RemoveFromCache(string cacheKey)
     {
         _cacheImplementation.RemoveFromCache(cacheKey);

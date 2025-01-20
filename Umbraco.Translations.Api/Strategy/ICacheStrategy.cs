@@ -18,14 +18,6 @@ public interface ICacheStrategy<TEntity> where TEntity : class
     TEntity? FetchSingleCachedItem(string[] cacheKeyParts, Func<TEntity> fallbackFunc);
     
     /// <summary>
-    /// Fetches multiple instances of <see cref="TEntity"/> from the configured cache.
-    /// </summary>
-    /// <param name="cacheKeySearch"></param>
-    /// <param name="fallbackFunc"></param>
-    /// <returns></returns>
-    IList<TEntity>? FetchMultipleCachedItem(string cacheKeySearch, Func<TEntity> fallbackFunc);
-    
-    /// <summary>
     /// Strategy implementation for removing a item from the configured cache
     /// </summary>
     /// <param name="cacheKey"></param>

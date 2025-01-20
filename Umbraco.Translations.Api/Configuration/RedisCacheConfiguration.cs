@@ -11,9 +11,4 @@ public class RedisCacheConfiguration
     ///  Configuration for connecting to redis.
     /// </summary>
     public string ConnectionString { get; init; }
-    
-    /// <summary>
-    /// Configuration for specifying each entry time to live.
-    /// </summary>
-    public int TimeToLive { get; init; }
 }

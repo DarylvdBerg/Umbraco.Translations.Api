@@ -11,11 +11,4 @@ public interface ITranslationService
     /// <param name="key">Translation dictionary key</param>
     /// <returns>Instance of <see cref="ITranslation"/></returns>
     ITranslation? GetTranslationByCulture(string culture, string key);
-    
-    /// <summary>
-    /// Gets all translation by culture
-    /// </summary>
-    /// <param name="culture">Umbraco culture</param>
-    /// <returns>IList of <see cref="ITranslation"/></returns>
-    IList<ITranslation>? GetAllTranslationsByCulture(string culture);
 }

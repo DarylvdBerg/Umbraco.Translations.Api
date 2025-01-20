@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 using Umbraco.Translations.Api.Cache;
 using Umbraco.Translations.Api.Configuration;
 using Umbraco.Translations.Api.Enums;
@@ -70,6 +71,12 @@ public static class ServiceCollectionExtensions
             .BindConfiguration(TranslationApiConfiguration.SectionName);  
 
         services.ConfigureCacheStrategy(translationApiConfiguration.CacheStrategy);
+
+        if (translationApiConfiguration.CacheStrategy == CacheStrategyEnum.RedisCacheStrategy)
+        {
+            services.ConfigureStackExchangeRedis(configuration);
+        }
+        
         services.ConfigureSwagger();
     }
 
@@ -123,6 +130,31 @@ public static class ServiceCollectionExtensions
             var cacheStrategy = new CacheStrategy<ITranslation>(logger, cacheKeyBuilder);
             cacheStrategy.SetCacheStrategy(cache);
             return cacheStrategy;
+        });
+    }
+
+    /// <summary>
+    /// Configure stack exchange redis when RedisCacheStrategy is chosen.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    private static void ConfigureStackExchangeRedis(this IServiceCollection services, IConfiguration configuration)
+    {
+        var redisConfig = configuration.GetSection(RedisCacheConfiguration.RedisCacheConfigurationSectionName).Get<RedisCacheConfiguration>();
+        if (redisConfig is null)
+        {
+            throw new ArgumentNullException(nameof(redisConfig), "Redis cache configuration is missing when RedisCacheStrategy is configured");
+        }
+
+        services
+            .AddOptions<RedisCacheConfiguration>()
+            .BindConfiguration(RedisCacheConfiguration.RedisCacheConfigurationSectionName);
+
+        services.AddSingleton<IDatabase>(_ =>
+        {
+            var newConnection = ConnectionMultiplexer.Connect(redisConfig.ConnectionString);
+            return newConnection.GetDatabase();
         });
     }
 }

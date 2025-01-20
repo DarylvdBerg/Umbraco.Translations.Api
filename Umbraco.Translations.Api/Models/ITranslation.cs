@@ -1,5 +1,8 @@
-﻿namespace Umbraco.Translations.Api.Models;
+﻿using Newtonsoft.Json;
 
+namespace Umbraco.Translations.Api.Models;
+
+[JsonConverter(typeof(InterfaceToConcreteConverter<ITranslation, Translation>))]
 public interface ITranslation
 {
     /// <summary>
