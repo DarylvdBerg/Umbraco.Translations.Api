@@ -18,4 +18,13 @@
       <PackageReference Include="Umbraco.Cms.Core" Version="13.5.2" />
     </ItemGroup>
 
+  <ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>Umbraco.Translations.Api.Tests</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
 </Project>
