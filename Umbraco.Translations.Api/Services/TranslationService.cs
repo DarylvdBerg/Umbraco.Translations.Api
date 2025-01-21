@@ -6,10 +6,10 @@ namespace Umbraco.Translations.Api.Services;
 
 public class TranslationService : ITranslationService
 {
-    private ILocalizationService _localizationService;
-    private IMapper _mapper;
+    private readonly IUmbracoLocalizationWrapperService _localizationService;
+    private readonly IMapper _mapper;
 
-    public TranslationService(ILocalizationService localizationService, IMapper mapper)
+    public TranslationService(IUmbracoLocalizationWrapperService localizationService, IMapper mapper)
     {
         _localizationService = localizationService;
         _mapper = mapper;
@@ -18,17 +18,7 @@ public class TranslationService : ITranslationService
     /// <inheritdoc />
     public ITranslation? GetTranslationByCulture(string culture, string key)
     {
-        // Try get dictionary item from umbraco by provided key.
-        var umbracoTranslation = _localizationService.GetDictionaryItemByKey(key);
-        if (umbracoTranslation is null)
-        {
-            return null;
-        }
-
-        // Get the single instance of the configured translation by culture.
-        var umbracoTranslationByCulture = umbracoTranslation
-            .Translations
-            .SingleOrDefault(trans => trans.LanguageIsoCode.Equals(culture, StringComparison.InvariantCulture));
+       var umbracoTranslationByCulture = _localizationService.GetDictionaryTranslation(key, culture);
 
         if (umbracoTranslationByCulture is null)
         {
