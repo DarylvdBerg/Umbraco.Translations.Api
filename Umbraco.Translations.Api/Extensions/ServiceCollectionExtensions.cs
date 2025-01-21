@@ -46,6 +46,7 @@ public static class ServiceCollectionExtensions
     private static void RegisterPackageServices(this IServiceCollection services)
     {
         services.AddTransient<ITranslationService, TranslationService>();
+        services.AddTransient<IUmbracoLocalizationWrapperService, UmbracoLocalizationWrapperService>();
         services.AddKeyedSingleton<ICache<ITranslation>, RedisCache<ITranslation>>(CacheStrategyEnum.RedisCacheStrategy);
         services.AddKeyedSingleton<ICache<ITranslation>, UmbracoCache<ITranslation>>(CacheStrategyEnum.UmbracoCacheStrategy);
         services.AddTransient<ICacheKeyBuilder, CacheKeyBuilder>();
