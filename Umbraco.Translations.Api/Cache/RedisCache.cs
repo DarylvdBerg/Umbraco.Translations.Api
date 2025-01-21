@@ -22,10 +22,7 @@ internal class RedisCache<TEntity> : ICache<TEntity>
             return default;
         }
         
-        var converted = JsonConvert.DeserializeObject<TEntity>(entity, new JsonSerializerSettings
-        {
-            TypeNameHandling = TypeNameHandling.Auto
-        });
+        var converted = JsonConvert.DeserializeObject<TEntity>(entity);
         
         return converted;
     }
