@@ -47,8 +47,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddTransient<ITranslationService, TranslationService>();
         services.AddTransient<IUmbracoLocalizationWrapperService, UmbracoLocalizationWrapperService>();
-        services.AddKeyedSingleton<ICache<ITranslation>, RedisCache<ITranslation>>(CacheStrategyEnum.RedisCacheStrategy);
-        services.AddKeyedSingleton<ICache<ITranslation>, UmbracoCache<ITranslation>>(CacheStrategyEnum.UmbracoCacheStrategy);
         services.AddTransient<ICacheKeyBuilder, CacheKeyBuilder>();
     }
 
@@ -123,6 +121,18 @@ public static class ServiceCollectionExtensions
     /// <exception cref="NotImplementedException"></exception>
     private static void ConfigureCacheStrategy(this IServiceCollection services, CacheStrategyEnum configuredCache)
     {
+        // TODO: Rework this switch statement to a bit more logical place for injecting these services.
+        // We'll need to do this for now cause Redis cache needs an IDatabase, not configuring redis will result in a scenario where we're unable to inject certain services.
+        switch (configuredCache)
+        {
+            case CacheStrategyEnum.UmbracoCacheStrategy:
+                services.AddKeyedSingleton<ICache<ITranslation>, UmbracoCache<ITranslation>>(CacheStrategyEnum.UmbracoCacheStrategy);
+                break;
+            case CacheStrategyEnum.RedisCacheStrategy:
+                services.AddKeyedSingleton<ICache<ITranslation>, RedisCache<ITranslation>>(CacheStrategyEnum.UmbracoCacheStrategy);
+                break;
+        }
+        
         services.AddSingleton<ICacheStrategy<ITranslation>>(sp =>
         {
             var cache = sp.GetRequiredKeyedService<ICache<ITranslation>>(configuredCache);
