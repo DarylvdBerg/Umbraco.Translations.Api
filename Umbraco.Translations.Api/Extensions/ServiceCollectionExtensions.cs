@@ -129,7 +129,7 @@ public static class ServiceCollectionExtensions
                 services.AddKeyedSingleton<ICache<ITranslation>, UmbracoCache<ITranslation>>(CacheStrategyEnum.UmbracoCacheStrategy);
                 break;
             case CacheStrategyEnum.RedisCacheStrategy:
-                services.AddKeyedSingleton<ICache<ITranslation>, RedisCache<ITranslation>>(CacheStrategyEnum.UmbracoCacheStrategy);
+                services.AddKeyedSingleton<ICache<ITranslation>, RedisCache<ITranslation>>(CacheStrategyEnum.RedisCacheStrategy);
                 break;
         }
         
