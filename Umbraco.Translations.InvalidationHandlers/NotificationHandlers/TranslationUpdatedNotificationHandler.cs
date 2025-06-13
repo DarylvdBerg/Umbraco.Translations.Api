@@ -3,19 +3,11 @@ using Umbraco.Cms.Core.Notifications;
 using Umbraco.Translations.Api.Services;
 using Umbraco.Translations.Cache.Strategy;
 
-namespace Umbraco.Translations.Api.NotificationHandlers;
+namespace Umbraco.Translations.InvalidationHandlers.NotificationHandlers;
 
-public class TranslationUpdatedNotificationHandler: INotificationHandler<DictionaryItemSavedNotification>
+internal abstract class TranslationUpdatedNotificationHandler(ICacheStrategy cacheStrategy, ICacheKeyBuilder cacheKeyBuilder)
+    : INotificationHandler<DictionaryItemSavedNotification>
 {
-    private readonly ICacheStrategy _cacheStrategy;
-    private readonly ICacheKeyBuilder _cacheKeyBuilder;
-
-    public TranslationUpdatedNotificationHandler(ICacheStrategy cacheStrategy, ICacheKeyBuilder cacheKeyBuilder)
-    {
-        _cacheStrategy = cacheStrategy;
-        _cacheKeyBuilder = cacheKeyBuilder;
-    }
-    
     public void Handle(DictionaryItemSavedNotification notification)
     {
         // Get all saved entities
@@ -30,8 +22,8 @@ public class TranslationUpdatedNotificationHandler: INotificationHandler<Diction
             // Loop over each configured culture to remove.
             foreach (var culture in cultures)
             {
-                var cacheKey = _cacheKeyBuilder.BuildCacheKey([dictionaryKey, culture]);
-                _cacheStrategy.RemoveFromCache(cacheKey);
+                var cacheKey = cacheKeyBuilder.BuildCacheKey([dictionaryKey, culture]);
+                cacheStrategy.RemoveFromCache(cacheKey);
             }
         }
     }

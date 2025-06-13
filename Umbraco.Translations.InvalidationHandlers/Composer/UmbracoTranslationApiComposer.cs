@@ -1,9 +1,9 @@
 ﻿using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
-using Umbraco.Translations.Api.NotificationHandlers;
+using Umbraco.Translations.InvalidationHandlers.NotificationHandlers;
 
-namespace Umbraco.Translations.Api.Composer;
+namespace Umbraco.Translations.InvalidationHandlers.Composer;
 
 public class UmbracoTranslationApiComposer : IComposer
 {

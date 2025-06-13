@@ -1,4 +1,5 @@
 ﻿using Umbraco.Translations.Api.Models;
+using Umbraco.Translations.Services.Models;
 
 namespace Umbraco.Translations.Api.Builder;
 

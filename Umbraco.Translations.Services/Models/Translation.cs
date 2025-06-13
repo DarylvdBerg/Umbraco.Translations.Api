@@ -1,4 +1,4 @@
-﻿namespace Umbraco.Translations.Api.Models;
+﻿namespace Umbraco.Translations.Services.Models;
 
 public class Translation: ITranslation
 {

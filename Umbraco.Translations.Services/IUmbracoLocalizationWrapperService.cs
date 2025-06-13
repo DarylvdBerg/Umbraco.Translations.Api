@@ -1,6 +1,6 @@
 ﻿using Umbraco.Cms.Core.Models;
 
-namespace Umbraco.Translations.Api.Services;
+namespace Umbraco.Translations.Services;
 
 /// <summary>
 /// Wrapper service for Umbraco's localization service

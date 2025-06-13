@@ -17,17 +17,7 @@ public static class ServiceCollectionExtensions
     public static void RegisterTranslationsApi(this IHostApplicationBuilder builder)
     {
         builder.RegisterCacheDependency();
-        builder.Services.RegisterPackageServices();
         builder.Services.RegisterTranslationApiConfiguration(builder.Configuration);
-    }
-    /// <summary>
-    /// Register project services
-    /// </summary>
-    /// <param name="services"></param>
-    private static void RegisterPackageServices(this IServiceCollection services)
-    {
-        services.AddTransient<ITranslationService, TranslationService>();
-        services.AddTransient<IUmbracoLocalizationWrapperService, UmbracoLocalizationWrapperService>();
     }
 
     /// <summary>
@@ -53,7 +43,7 @@ public static class ServiceCollectionExtensions
     /// <param name="services"></param>
     private static void ConfigureSwagger(this IServiceCollection services)
     {
-        // TODO: Check if we can move the translation API to a seperate swagger document.
+        // TODO: Check if we can move the translation API to a separate swagger document.
         services.AddSwaggerGen(options =>
         {
             options.AddSecurityDefinition("X-Api-Key", new OpenApiSecurityScheme

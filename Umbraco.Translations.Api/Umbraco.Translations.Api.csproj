@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Umbraco.Translations.Cache\Umbraco.Translations.Cache.csproj" />
+    <ProjectReference Include="..\Umbraco.Translations.Services\Umbraco.Translations.Services.csproj" />
   </ItemGroup>
 
 </Project>
