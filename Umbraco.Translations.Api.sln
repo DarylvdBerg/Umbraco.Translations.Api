@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Translations.Cache"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Translations.Services", "Umbraco.Translations.Services\Umbraco.Translations.Services.csproj", "{C3D6F661-0E7C-4A0C-93F9-4B79C824AC51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Translations.Services.Tests", "Umbraco.Translations.Services.Tests\Umbraco.Translations.Services.Tests.csproj", "{613660A3-1735-45CF-AE3A-C4CBC7A082D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{C3D6F661-0E7C-4A0C-93F9-4B79C824AC51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3D6F661-0E7C-4A0C-93F9-4B79C824AC51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3D6F661-0E7C-4A0C-93F9-4B79C824AC51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{613660A3-1735-45CF-AE3A-C4CBC7A082D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{613660A3-1735-45CF-AE3A-C4CBC7A082D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{613660A3-1735-45CF-AE3A-C4CBC7A082D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{613660A3-1735-45CF-AE3A-C4CBC7A082D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
