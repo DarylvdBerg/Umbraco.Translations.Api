@@ -1,6 +1,6 @@
 ﻿using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Notifications;
-using Umbraco.Translations.Api.Services;
+using Umbraco.Translations.Cache.Services;
 using Umbraco.Translations.Cache.Strategy;
 
 namespace Umbraco.Translations.Core.NotificationHandlers;

@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Umbraco.Translations.Api.Configuration;
-using Umbraco.Translations.Api.Services;
 using Umbraco.Translations.Cache.Extensions;
 using Umbraco.Translations.Services.Extensions;
 
