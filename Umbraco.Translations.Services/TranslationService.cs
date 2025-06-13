@@ -6,9 +6,9 @@ namespace Umbraco.Translations.Services;
 public class TranslationService(IUmbracoLocalizationWrapperService localizationService) : ITranslationService
 {
     /// <inheritdoc />
-    public ITranslation? GetTranslationByCulture(string culture, string key)
+    public async Task<ITranslation?> GetTranslationByCultureAsync(string culture, string key)
     {
-       var umbracoTranslationByCulture = localizationService.GetDictionaryTranslation(key, culture);
+       var umbracoTranslationByCulture = await localizationService.GetDictionaryTranslationAsync(key, culture);
 
         if (umbracoTranslationByCulture is null)
         {

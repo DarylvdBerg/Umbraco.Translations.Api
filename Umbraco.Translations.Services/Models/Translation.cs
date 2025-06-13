@@ -3,6 +3,6 @@
 public class Translation: ITranslation
 {
     public Guid Id { get; init; }
-    public string Value { get; init; }
-    public string Culture { get; init; }
+    public required string Value { get; init; }
+    public required string Culture { get; init; }
 }

@@ -20,11 +20,11 @@ public class TranslationServiceTests
     public void Should_Return_Null_When_Translation_Not_Found()
     {
         // Arrange
-        _mockWrapperLocalization.Setup(x => x.GetDictionaryTranslation(It.IsAny<string>(), It.IsAny<string>()))
-            .Returns<IDictionaryTranslation>(null);
+        _mockWrapperLocalization.Setup(x => x.GetDictionaryTranslationAsync(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns<IDictionaryTranslation>(null!);
         
         // Act
-        var translation = _service.GetTranslationByCulture("en-US", "non.existent.key");
+        var translation = _service.GetTranslationByCultureAsync("en-US", "non.existent.key");
         
         // Assert
         Assert.IsNull(translation);
@@ -34,11 +34,11 @@ public class TranslationServiceTests
     public void Should_Return_Null_When_Translation_Value_Is_NullOrEmpty()
     {
         // Arrange
-        _mockWrapperLocalization.Setup(x => x.GetDictionaryTranslation(It.IsAny<string>(), It.IsAny<string>()))
-            .Returns(new DictionaryTranslation(new Language("en-US", "English"), ""));
+        _mockWrapperLocalization.Setup(x => x.GetDictionaryTranslationAsync(It.IsAny<string>(), It.IsAny<string>()))
+            .ReturnsAsync(new DictionaryTranslation(new Language("en-US", "English"), ""));
         
         // Act
-        var translation = _service.GetTranslationByCulture("en-US", "non.existent.key");
+        var translation = _service.GetTranslationByCultureAsync("en-US", "non.existent.key");
         
         // Assert
         Assert.IsNull(translation);
@@ -49,11 +49,11 @@ public class TranslationServiceTests
     {
         // Arrange
         var expectedTranslation = new DictionaryTranslation(new Language("en-US", "English"), "Hello World");
-        _mockWrapperLocalization.Setup(x => x.GetDictionaryTranslation(It.IsAny<string>(), It.IsAny<string>()))
-            .Returns(expectedTranslation);
+        _mockWrapperLocalization.Setup(x => x.GetDictionaryTranslationAsync(It.IsAny<string>(), It.IsAny<string>()))
+            .ReturnsAsync(expectedTranslation);
         
         // Act
-        var translation = _service.GetTranslationByCulture("en-US", "greeting.hello");
+        var translation = _service.GetTranslationByCultureAsync("en-US", "greeting.hello");
         
         // Assert
         Assert.IsNotNull(translation);

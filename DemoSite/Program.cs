@@ -28,9 +28,7 @@ public class Program
                 u.UseWebsite();
             })
             .WithEndpoints(u =>
-            {
-                u.UseInstallerEndpoints();
-                u.UseBackOfficeEndpoints();
+            { u.UseBackOfficeEndpoints();
                 u.UseWebsiteEndpoints();
             });
 

@@ -13,28 +13,30 @@ namespace Umbraco.Translations.Api.Api;
 [Route("api/v{version:apiVersion}/translations")]
 [ApiVersion(Constants.Api.Version)]
 [Produces("application/json")]
-public class TranslationApiController : ControllerBase
+public class TranslationApiController(
+    ITranslationService translationService,
+    ICacheStrategy translationCache,
+    ILogger<TranslationApiController> logger)
+    : ControllerBase
 {
-    private readonly ITranslationService _translationService;
-    private readonly ICacheStrategy _translationCache;
-    private readonly ILogger<TranslationApiController> _logger;
-
-    public TranslationApiController(ITranslationService translationService, ICacheStrategy translationCache, ILogger<TranslationApiController> logger)
-    {
-        _translationService = translationService;
-        _translationCache = translationCache;
-        _logger = logger;
-    }
-
     [HttpGet]
-    public ITranslationApiResponse Get(string culture, string key)
+    public async Task<ITranslationApiResponse> Get(string culture, string key)
     {
         var responseBuilder = new TranslationApiResponseBuilder();
         
         try
         {
-            var translation =  _translationCache.FetchSingleCachedItem([key, culture],
-                () => _translationService.GetTranslationByCulture(culture, key));
+            var translationTask = translationCache.FetchSingleCachedItem([key, culture],
+                () => translationService.GetTranslationByCultureAsync(culture, key));
+
+            if (translationTask is null)
+            {
+                return responseBuilder    
+                    .WithErrorMessage($"No translation found for key: {key} and culture: {culture}")
+                    .Build();
+            }
+            
+            var translation = await translationTask;
         
             if (translation is not null)
             {
@@ -44,7 +46,7 @@ public class TranslationApiController : ControllerBase
         catch (Exception e)
         {
             var message = $"Failed to fetch single translation with provided key: {key}, and culture: {culture}";
-            _logger.LogError(e, message);
+            logger.LogError(e, message);
             responseBuilder.WithErrorMessage(message);
         }
         

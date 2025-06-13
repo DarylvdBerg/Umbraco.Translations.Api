@@ -3,20 +3,20 @@ using Umbraco.Cms.Core.Services;
 
 namespace Umbraco.Translations.Services;
 
-internal sealed class UmbracoLocalizationWrapperService(ILocalizationService localizationService)
+internal sealed class UmbracoLocalizationWrapperService(IDictionaryItemService dictionaryItemService)
     : IUmbracoLocalizationWrapperService
 {
     /// <inheritdoc />
-    public IDictionaryTranslation? GetDictionaryTranslation(string key, string culture)
+    public async Task<IDictionaryTranslation?> GetDictionaryTranslationAsync(string key, string culture)
     {
-        var umbracoTranslation = localizationService.GetDictionaryItemByKey(key);
-        if (umbracoTranslation is null)
+        var translation = await dictionaryItemService.GetAsync(key);
+        if (translation is null)
         {
             return null;
         }
 
         // Get the single instance of the configured translation by culture.
-        var umbracoTranslationByCulture = umbracoTranslation
+        var umbracoTranslationByCulture = translation
             .Translations
             .SingleOrDefault(trans => trans.LanguageIsoCode.Equals(culture, StringComparison.InvariantCulture));
 

@@ -13,5 +13,5 @@ public interface IUmbracoLocalizationWrapperService
     /// <param name="key"></param>
     /// <param name="culture"></param>
     /// <returns></returns>
-    IDictionaryTranslation? GetDictionaryTranslation(string key, string culture);
+    Task<IDictionaryTranslation?> GetDictionaryTranslationAsync(string key, string culture);
 }

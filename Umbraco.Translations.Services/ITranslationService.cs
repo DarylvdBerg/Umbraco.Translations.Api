@@ -10,5 +10,5 @@ public interface ITranslationService
     /// <param name="culture">Umbraco culture</param>
     /// <param name="key">Translation dictionary key</param>
     /// <returns>Instance of <see cref="ITranslation"/></returns>
-    ITranslation? GetTranslationByCulture(string culture, string key);
+    Task<ITranslation?> GetTranslationByCultureAsync(string culture, string key);
 }
