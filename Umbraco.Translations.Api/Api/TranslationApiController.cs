@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Umbraco.Translations.Api.Builder;
 using Umbraco.Translations.Api.Models;
 using Umbraco.Translations.Api.Services;
-using Umbraco.Translations.Api.Strategy;
+using Umbraco.Translations.Cache.Strategy;
 
 namespace Umbraco.Translations.Api.Api;
 
@@ -15,10 +15,10 @@ namespace Umbraco.Translations.Api.Api;
 public class TranslationApiController : ControllerBase
 {
     private readonly ITranslationService _translationService;
-    private readonly ICacheStrategy<ITranslation> _translationCache;
+    private readonly ICacheStrategy _translationCache;
     private readonly ILogger<TranslationApiController> _logger;
 
-    public TranslationApiController(ITranslationService translationService, ICacheStrategy<ITranslation> translationCache, ILogger<TranslationApiController> logger)
+    public TranslationApiController(ITranslationService translationService, ICacheStrategy translationCache, ILogger<TranslationApiController> logger)
     {
         _translationService = translationService;
         _translationCache = translationCache;

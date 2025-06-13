@@ -1,6 +1,4 @@
-﻿using Umbraco.Translations.Api.Enums;
-
-namespace Umbraco.Translations.Api.Configuration;
+﻿namespace Umbraco.Translations.Api.Configuration;
 
 public class TranslationApiConfiguration
 {
@@ -13,9 +11,4 @@ public class TranslationApiConfiguration
     /// ApiKey for accessing the translation api
     /// </summary>
     public string ApiKey { get; init; }
-    
-    /// <summary>
-    /// Cache strategy to use with the translation API.
-    /// </summary>
-    public CacheStrategyEnum CacheStrategy { get; init; }
 }

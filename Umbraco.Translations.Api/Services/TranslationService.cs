@@ -1,18 +1,14 @@
-﻿using AutoMapper;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Translations.Api.Models;
+﻿using Umbraco.Translations.Api.Models;
 
 namespace Umbraco.Translations.Api.Services;
 
 public class TranslationService : ITranslationService
 {
     private readonly IUmbracoLocalizationWrapperService _localizationService;
-    private readonly IMapper _mapper;
 
-    public TranslationService(IUmbracoLocalizationWrapperService localizationService, IMapper mapper)
+    public TranslationService(IUmbracoLocalizationWrapperService localizationService)
     {
         _localizationService = localizationService;
-        _mapper = mapper;
     }
     
     /// <inheritdoc />
@@ -29,9 +25,7 @@ public class TranslationService : ITranslationService
         {
             return null;
         }
-        
-        var mapped = _mapper.Map<ITranslation>(umbracoTranslationByCulture);
-        
-        return mapped;
+
+        return new Translation();
     }
 }
