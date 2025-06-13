@@ -3,7 +3,7 @@ using Umbraco.Cms.Core.Notifications;
 using Umbraco.Translations.Cache.Services;
 using Umbraco.Translations.Cache.Strategy;
 
-namespace Umbraco.Translations.Core.NotificationHandlers;
+namespace Umbraco.Translations.Api.NotificationHandlers;
 
 public class TranslationUpdatedNotificationHandler(ICacheStrategy cacheStrategy, ICacheKeyBuilder cacheKeyBuilder)
     : INotificationHandler<DictionaryItemSavedNotification>

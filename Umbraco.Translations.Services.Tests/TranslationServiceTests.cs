@@ -17,35 +17,35 @@ public class TranslationServiceTests
     }
 
     [Test]
-    public void Should_Return_Null_When_Translation_Not_Found()
+    public async Task Should_Return_Null_When_Translation_Not_Found()
     {
         // Arrange
         _mockWrapperLocalization.Setup(x => x.GetDictionaryTranslationAsync(It.IsAny<string>(), It.IsAny<string>()))
-            .Returns<IDictionaryTranslation>(null!);
+            .ReturnsAsync((IDictionaryTranslation) null);
         
         // Act
-        var translation = _service.GetTranslationByCultureAsync("en-US", "non.existent.key");
+        var translation = await _service.GetTranslationByCultureAsync("en-US", "non.existent.key");
         
         // Assert
         Assert.IsNull(translation);
     }
 
     [Test]
-    public void Should_Return_Null_When_Translation_Value_Is_NullOrEmpty()
+    public async Task Should_Return_Null_When_Translation_Value_Is_NullOrEmpty()
     {
         // Arrange
         _mockWrapperLocalization.Setup(x => x.GetDictionaryTranslationAsync(It.IsAny<string>(), It.IsAny<string>()))
             .ReturnsAsync(new DictionaryTranslation(new Language("en-US", "English"), ""));
         
         // Act
-        var translation = _service.GetTranslationByCultureAsync("en-US", "non.existent.key");
+        var translation = await _service.GetTranslationByCultureAsync("en-US", "non.existent.key");
         
         // Assert
         Assert.IsNull(translation);
     }
     
     [Test]
-    public void Should_Return_Translation_When_Found()
+    public async Task Should_Return_Translation_When_Found()
     {
         // Arrange
         var expectedTranslation = new DictionaryTranslation(new Language("en-US", "English"), "Hello World");
@@ -53,7 +53,7 @@ public class TranslationServiceTests
             .ReturnsAsync(expectedTranslation);
         
         // Act
-        var translation = _service.GetTranslationByCultureAsync("en-US", "greeting.hello");
+        var translation = await _service.GetTranslationByCultureAsync("en-US", "greeting.hello");
         
         // Assert
         Assert.IsNotNull(translation);
