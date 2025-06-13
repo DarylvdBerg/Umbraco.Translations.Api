@@ -1,4 +1,5 @@
-﻿using Umbraco.Translations.Services.Models;
+﻿using Umbraco.Translations.Services.Extensions;
+using Umbraco.Translations.Services.Models;
 
 namespace Umbraco.Translations.Services;
 
@@ -19,6 +20,6 @@ public class TranslationService(IUmbracoLocalizationWrapperService localizationS
             return null;
         }
 
-        return new Translation();
+        return umbracoTranslationByCulture.ToTranslation();
     }
 }

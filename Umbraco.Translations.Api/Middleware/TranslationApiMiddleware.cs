@@ -9,7 +9,7 @@ public class TranslationApiMiddleware : ApiAuthorizationMiddlewareBase
     private readonly IOptionsMonitor<TranslationApiConfiguration> _options;
 
     /// <inheritdoc />
-    protected override string ApiKeyValue => _options.CurrentValue.ApiKey;
+    protected override string ApiKeyValue => _options.CurrentValue.ApiKey ?? string.Empty;
     
     /// <inheritdoc />
     protected override string ApiKeyHeaderName => "X-Api-Key";

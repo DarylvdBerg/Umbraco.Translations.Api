@@ -10,5 +10,5 @@ public class TranslationApiConfiguration
     /// <summary>
     /// ApiKey for accessing the translation api
     /// </summary>
-    public string ApiKey { get; init; }
+    public string? ApiKey { get; init; }
 }

@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using Umbraco.Translations.Api.Configuration;
 using Umbraco.Translations.Api.Services;
 using Umbraco.Translations.Cache.Extensions;
+using Umbraco.Translations.Services.Extensions;
 
 namespace Umbraco.Translations.Api.Extensions;
 
@@ -17,6 +18,7 @@ public static class ServiceCollectionExtensions
     public static void RegisterTranslationsApi(this IHostApplicationBuilder builder)
     {
         builder.RegisterCacheDependency();
+        builder.Services.RegisterTranslationServices();
         builder.Services.RegisterTranslationApiConfiguration(builder.Configuration);
     }
 
