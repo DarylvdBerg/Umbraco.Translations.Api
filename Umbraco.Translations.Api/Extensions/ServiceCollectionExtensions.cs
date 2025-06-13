@@ -30,11 +30,9 @@ public static class ServiceCollectionExtensions
     /// <exception cref="ArgumentNullException"></exception>
     private static void RegisterTranslationApiConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
-        var translationApiConfiguration = configuration.GetSection(TranslationApiConfiguration.SectionName).Get<TranslationApiConfiguration>();
-        if (translationApiConfiguration is null)
-        {
-            throw new ArgumentNullException(nameof(translationApiConfiguration), "Translation API configuration is missing");
-        }
+        services
+            .AddOptions<TranslationApiConfiguration>()
+            .Bind(configuration.GetSection(TranslationApiConfiguration.SectionName));
         
         services.ConfigureSwagger();
     }
