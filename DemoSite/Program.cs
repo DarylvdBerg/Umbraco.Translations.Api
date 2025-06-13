@@ -1,4 +1,5 @@
 using Umbraco.Translations.Api.Extensions;
+using Umbraco.Translations.Core.Extensions;
 
 public class Program
 {

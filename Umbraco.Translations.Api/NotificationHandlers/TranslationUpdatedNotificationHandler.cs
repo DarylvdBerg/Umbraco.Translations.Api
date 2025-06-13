@@ -3,9 +3,9 @@ using Umbraco.Cms.Core.Notifications;
 using Umbraco.Translations.Api.Services;
 using Umbraco.Translations.Cache.Strategy;
 
-namespace Umbraco.Translations.InvalidationHandlers.NotificationHandlers;
+namespace Umbraco.Translations.Core.NotificationHandlers;
 
-internal abstract class TranslationUpdatedNotificationHandler(ICacheStrategy cacheStrategy, ICacheKeyBuilder cacheKeyBuilder)
+public class TranslationUpdatedNotificationHandler(ICacheStrategy cacheStrategy, ICacheKeyBuilder cacheKeyBuilder)
     : INotificationHandler<DictionaryItemSavedNotification>
 {
     public void Handle(DictionaryItemSavedNotification notification)

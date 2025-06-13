@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoSite", "DemoSite\DemoSi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Translations.Cache", "Umbraco.Translations.Cache\Umbraco.Translations.Cache.csproj", "{F2AC42BB-BB57-49D1-B46E-0F1801E924D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Translations.InvalidationHandlers", "Umbraco.Translations.InvalidationHandlers\Umbraco.Translations.InvalidationHandlers.csproj", "{428163A6-D38A-41E6-8649-046E26B79B8E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Translations.Services", "Umbraco.Translations.Services\Umbraco.Translations.Services.csproj", "{C3D6F661-0E7C-4A0C-93F9-4B79C824AC51}"
 EndProject
 Global
@@ -28,10 +26,6 @@ Global
 		{F2AC42BB-BB57-49D1-B46E-0F1801E924D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2AC42BB-BB57-49D1-B46E-0F1801E924D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2AC42BB-BB57-49D1-B46E-0F1801E924D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{428163A6-D38A-41E6-8649-046E26B79B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{428163A6-D38A-41E6-8649-046E26B79B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{428163A6-D38A-41E6-8649-046E26B79B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{428163A6-D38A-41E6-8649-046E26B79B8E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C3D6F661-0E7C-4A0C-93F9-4B79C824AC51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C3D6F661-0E7C-4A0C-93F9-4B79C824AC51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3D6F661-0E7C-4A0C-93F9-4B79C824AC51}.Release|Any CPU.ActiveCfg = Release|Any CPU
